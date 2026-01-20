@@ -21,4 +21,3 @@ class User {
     }
 }
 const sameer = new User("sameer@gmail.com", "Mohd Sameer");
-//# sourceMappingURL=10_class.js.map

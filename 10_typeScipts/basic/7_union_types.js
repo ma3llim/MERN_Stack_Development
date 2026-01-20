@@ -17,4 +17,3 @@ getDbId("3");
 const data = [1, 2, 3, "4"];
 let seatAllotment;
 seatAllotment = "asile";
-//# sourceMappingURL=7_union_types.js.map

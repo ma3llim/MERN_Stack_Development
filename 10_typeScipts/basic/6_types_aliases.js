@@ -12,4 +12,3 @@ let cardDetailsObj = {
     cardDate: "10-06-2025",
     cvv: 123,
 };
-//# sourceMappingURL=6_types_aliases.js.map

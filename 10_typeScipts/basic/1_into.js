@@ -6,4 +6,3 @@ let user = {
 };
 console.log("Mohd Sameer");
 console.log(user.name);
-//# sourceMappingURL=1_into.js.map

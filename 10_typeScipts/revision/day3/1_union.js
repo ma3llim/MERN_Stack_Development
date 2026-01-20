@@ -1,7 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-let hero;
-function getHero() {
-    return "thor";
-}
-hero = getHero();
+let obj1 = "test";
+let obj2 = 1;

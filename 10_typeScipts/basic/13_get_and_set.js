@@ -13,4 +13,3 @@ class User {
     }
 }
 let u1 = new User("sam", 25);
-//# sourceMappingURL=13_get_and_set.js.map

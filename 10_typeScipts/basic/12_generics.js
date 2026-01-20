@@ -14,4 +14,3 @@ function identityThree(val) {
 function identityFour(val) {
     return val;
 }
-//# sourceMappingURL=12_generics.js.map

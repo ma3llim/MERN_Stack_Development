@@ -8,4 +8,3 @@ const checkPalindrome = (name) => {
     console.log(`${name.toUpperCase()} Is A Palindrome`);
 };
 checkPalindrome("madam");
-//# sourceMappingURL=script.js.map

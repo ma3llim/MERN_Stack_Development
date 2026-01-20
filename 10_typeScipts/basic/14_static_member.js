@@ -11,4 +11,3 @@ class Payment {
         return amount > 0;
     }
 }
-//# sourceMappingURL=14_static_member.js.map

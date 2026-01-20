@@ -4,4 +4,3 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // With types
 let user;
 user = ["test", 123, false];
-//# sourceMappingURL=8_typles.js.map

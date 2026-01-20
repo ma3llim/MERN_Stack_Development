@@ -18,4 +18,3 @@ class Instagram extends TakePhoto {
     }
 }
 const sameer = new Instagram("test", "test", 4);
-//# sourceMappingURL=11_abstract_class.js.map

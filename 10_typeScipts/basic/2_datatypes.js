@@ -22,4 +22,3 @@ const sum = (a, b) => {
 function printId(id) {
     console.log(`Id is ${id}`);
 }
-//# sourceMappingURL=2_datatypes.js.map

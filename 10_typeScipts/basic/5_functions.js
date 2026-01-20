@@ -7,4 +7,3 @@ function getUpper(val) {
     return val.toUpperCase();
 }
 function signUp(name, email, password, age, isEnroll) { }
-//# sourceMappingURL=5_functions.js.map
