@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "cli notes with typescript",
     "main": "index.js",
+    "type": "module",
     "author": {
         "name": "mohd sameer",
         "email": "mohdsameer68257@gmail.com"
