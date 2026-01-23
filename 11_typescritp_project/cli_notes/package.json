@@ -1,21 +1,30 @@
 {
-  "name": "cli_notes",
-  "version": "1.0.0",
-  "description": "cli notes with typescript",
-  "main": "index.js",
-  "author": {
-    "name": "mohd sameer",
-    "email": "mohdsameer68257@gmail.com"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
-    "@typescript-eslint/parser": "^8.53.1",
-    "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "prettier": "^3.8.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+    "name": "cli_notes",
+    "version": "1.0.0",
+    "description": "cli notes with typescript",
+    "main": "index.js",
+    "author": {
+        "name": "mohd sameer",
+        "email": "mohdsameer68257@gmail.com"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write",
+        "build": "tsc",
+        "dev": "tsx --watch src/index.ts"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^8.53.1",
+        "@typescript-eslint/parser": "^8.53.1",
+        "eslint": "^9.39.2",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.5",
+        "prettier": "^3.8.1",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "tsx": "^4.21.0"
+    }
 }
