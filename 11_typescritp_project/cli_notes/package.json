@@ -12,7 +12,8 @@
         "lint:fix": "eslint . --fix",
         "format": "prettier --write",
         "build": "tsc",
-        "dev": "tsx --watch src/index.ts"
+        "dev": "tsx --watch src/index.ts",
+        "start": "node dist/index.js"
     },
     "license": "MIT",
     "devDependencies": {
