@@ -1,5 +1,6 @@
 import { access, constants, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { NoteType } from "../types/note.types.js";
 
 const filePath = join(process.cwd(), "notes.json");
 

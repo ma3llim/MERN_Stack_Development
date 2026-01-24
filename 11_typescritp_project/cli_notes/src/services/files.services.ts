@@ -1,3 +1,5 @@
+import { NoteType } from "../types/note.types.js";
+
 const addNotes = (note: NoteType) => {
     console.log("test file services");
 };
