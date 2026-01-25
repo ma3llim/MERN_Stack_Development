@@ -1,53 +1,73 @@
 import chalk from "chalk";
-import CliTable3 from "cli-table3";
+import CliTable3, { Table } from "cli-table3";
+import { NoteType } from "../types/note.types.js";
+import log from "./logs.js";
 
-const createNotesTable = (notes: NoteType[]) => {
-    const table = new CliTable3({
+const createNotesTable = (notes: NoteType[]): Table => {
+    const table: Table = new CliTable3({
         head: [
-            chalk.bold.green("ID"),
-            chalk.bold.blue("Title"),
+            chalk.bold.magenta("ID"),
+            chalk.bold.magenta("Title"),
             chalk.bold.magenta("Description"),
-            chalk.bold.cyan("Tags"),
-            chalk.bold.gray("Created At"),
+            chalk.bold.magenta("Tags"),
+            chalk.bold.magenta("Status"),
+            chalk.bold.magenta("Priority"),
+            chalk.bold.magenta("Audit Info"),
+            chalk.bold.magenta("Date Time"),
         ],
         wordWrap: true,
-        colWidths: [10, 25, 45, 25, 25],
+        colWidths: [10, 20, 20, 22, 12, 12, 25, 25],
     });
 
-    // notes.forEach((n) => {
-    //     table.push([n.id, chalk.green(n.title), n.description, n.tags?.length ? n.tags : chalk.gray("-"), n.createdAt]);
-    // });
+    notes.forEach((note) => {
+        table.push([
+            note.id,
+            chalk.blue(note.content.title),
+            note.content.description,
+            note.tags && note.tags.length > 0 ? note.tags.join(", ") : chalk.gray("-"),
+            chalk.cyan(note.status),
+            chalk.yellow(note.priority),
+            [
+                `Created: ${note.auditInfo.createdBy}`,
+                note.auditInfo.lastModifiedBy ? `Modified: ${note.auditInfo.lastModifiedBy}` : "",
+            ].join("\n"),
+            [
+                `Created: ${note.timestamps.createdAt.toLocaleString()}`,
+                `Updated: ${note.timestamps.updatedAt.toLocaleString()}`,
+
+                note.timestamps.archivedAt ? `Archived: ${note.timestamps.archivedAt.toLocaleString()}` : "",
+            ].join("\n"),
+        ]);
+    });
 
     return table;
 };
 
-const showOptions = () => {
+const showOptions = (): void => {
     console.clear();
-    console.log(chalk.bold.green("🚀 CLI Notes App"));
+    console.log(chalk.bold.green("🚀 CLI Notes App\n"));
 
-    // Creating table
     const table = new CliTable3({
         head: [chalk.bold.cyan("Options"), chalk.bold.cyan("Description"), chalk.bold.cyan("Command")],
         colWidths: [12, 36, 45],
     });
 
-    // Adding Tables Options
     table.push(
         [
             chalk.green("📝 add"),
-            "Add a new note (title, desc, tags)",
-            chalk.cyan('yarn dev add "Title" "Desc" "tag1,tag2"'),
+            "Add a new note (title, description, tags)",
+            chalk.cyan('notes add "Title" "Desc" "tag1,tag2"'),
         ],
-        [chalk.green("📋 list"), "Show all saved notes", chalk.cyan("yarn dev list")],
-        [chalk.green("❌ del"), "Delete note by ID", chalk.cyan("yarn dev delete <id>")],
-        [chalk.green("🔍 find"), "Search note by word", chalk.cyan('yarn dev search "word"')],
-        [chalk.green("💡 help"), "Show this guide", chalk.cyan("yarn dev help")]
+        [chalk.green("📋 list"), "Show all saved notes", chalk.cyan("notes get")],
+        [chalk.green("❌ del"), "Delete note by ID", chalk.cyan("notes delete <id>")],
+        [chalk.green("🔍 find"), "Search note by word", chalk.cyan('notes search "word"')],
+        [chalk.green("💡 help"), "Show this guide", chalk.cyan("notes help")]
     );
 
     console.log(table.toString());
 };
 
-const showNotesTable = (notes: NoteType[], title = "Your Notes") => {
+const showNotesTable = (notes: NoteType[], title = "Your Notes"): void => {
     console.clear();
     console.log(chalk.bold.cyan(`\n📚 ${title}\n`));
 
@@ -59,46 +79,25 @@ const showNotesTable = (notes: NoteType[], title = "Your Notes") => {
     console.log(createNotesTable(notes).toString());
 };
 
-const newNoteAdded = (note: NoteType, title = "New Added Successfuly") => {
+const newNoteAdded = (note: NoteType, title = "New Note Added Successfully"): void => {
     console.clear();
-    console.log(chalk.bold.cyan(`\n➕ ${title}\n`));
-    // Create a new table
-    const table = new CliTable3({
-        head: [
-            chalk.bold.green("ID"),
-            chalk.bold.blue("Title"),
-            chalk.bold.magenta("Description"),
-            chalk.bold.cyan("Tags"),
-            chalk.bold.gray("Created At"),
-        ],
-        wordWrap: true,
-    });
-    // table.push([note.id, chalk.green(note.title), note.description, note?.tags || chalk.gray("-"), note.createdAt]);
-
-    console.log(table.toString());
+    log(title, "success");
+    console.log(createNotesTable([note]).toString());
 };
 
-const searchResultsTables = (notes: NoteType[], title = "Search Result Are") => {
+/**
+ * Shows search results in a table
+ */
+const searchResultsTable = (notes: NoteType[], title = "Search Results"): void => {
     console.clear();
-    console.log(chalk.bold.cyan(`\n📚 ${title}\n`));
+    log(chalk.bold.cyan(`\n📚 ${title}\n`));
 
-    // Create a new table
-    const table = new CliTable3({
-        head: [
-            chalk.bold.green("ID"),
-            chalk.bold.blue("Title"),
-            chalk.bold.magenta("Description"),
-            chalk.bold.cyan("Tags"),
-            chalk.bold.gray("Created At"),
-        ],
-        wordWrap: true,
-        colWidths: [10, 25, 45, 25, 25],
-    });
+    if (!notes.length) {
+        console.log(chalk.yellow("⚠️ No results found."));
+        return;
+    }
 
-    // notes.forEach((n) => {
-    //     table.push([n.id, chalk.green(n.title), n.description, n.tags || chalk.gray("-"), n.createdAt]);
-    // });
-    console.log(table.toString());
+    console.log(createNotesTable(notes).toString());
 };
 
-export { showOptions, newNoteAdded, searchResultsTables, showNotesTable };
+export { showOptions, showNotesTable, newNoteAdded, searchResultsTable };
