@@ -54,7 +54,7 @@ const deleteNotes = async (noteId: NoteId): Promise<void> => {
     }
 };
 
-const updateNotes = async (noteId: string, note: Partial<NoteType>): Promise<void> => {
+const updateNotes = async (noteId: string, note: any): Promise<void> => {
     try {
         const notes = await readNotes();
 
@@ -67,10 +67,9 @@ const updateNotes = async (noteId: string, note: Partial<NoteType>): Promise<voi
 
         const updatedNote: NoteType = {
             ...existing,
-            ...note,
             content: {
-                ...existing.content,
-                ...(note.content || {}),
+                title: note.title ?? existing.content.title,
+                description: note.description ?? existing.content.description,
             },
             tags: note.tags ?? existing.tags,
             timestamps: {
@@ -114,4 +113,16 @@ const getNotes = async (filter?: NoteFilter): Promise<void> => {
     }
 };
 
-export { addNotes, deleteNotes, updateNotes, getNotes };
+const searchNotes = async (keyword: string): Promise<void> => {
+    const notes = await readNotes();
+    const lowerkeyword = keyword.toLowerCase();
+
+    const result = notes.filter(
+        (note) =>
+            note.content.title.toLowerCase().includes(lowerkeyword) ||
+            note.content.description.toLowerCase().includes(lowerkeyword)
+    );
+    showNotesTable(result, `Search Result for ${keyword}`);
+};
+
+export { addNotes, deleteNotes, updateNotes, getNotes, searchNotes };
