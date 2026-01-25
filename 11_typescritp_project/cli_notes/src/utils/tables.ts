@@ -39,7 +39,7 @@ const createNotesTable = (notes: NoteType[]): Table => {
             note.id,
             chalk.blue(note.content.title),
             note.content.description,
-            note.tags && note.tags.length > 0 ? note.tags.join(", ") : chalk.gray("-"),
+            note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.join(", ") : chalk.gray("-"),
             chalk.cyan(note.status),
             chalk.yellow(note.priority),
             [
