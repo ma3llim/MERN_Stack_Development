@@ -1,5 +1,6 @@
 import { Command } from "commander";
-import { addNotes, deleteNotes, getNotes } from "../services/files.services.js";
+import { addNotes, deleteNotes, getNotes, updateNotes } from "../services/files.services.js";
+import { NoteId, NoteType } from "../types/note.types.js";
 
 const registerAddCommand = (program: Command): void => {
     program
@@ -22,7 +23,21 @@ const registerAddCommand = (program: Command): void => {
         });
 };
 
-const registerUpdateCommand = (program: Command): void => {};
+const registerUpdateCommand = (program: Command): void => {
+    program
+        .command("update")
+        .description("Update a note by ID")
+        .argument("<id>", "Note ID")
+        .option("-t, --title <title>", "Update note title")
+        .option("-d, --description <description>", "Update note description")
+        .option("-s, --status <status>", "active | archived | completed")
+        .option("-p, --priority <priority>", "low | medium | high")
+        .option("--tags <tags>", "Comma separated tags")
+        .action((id: NoteId, options: NoteType) => {
+            updateNotes(id, options);
+        });
+};
+
 const registerDeleteCommand = (program: Command): void => {
     program
         .command("delete")

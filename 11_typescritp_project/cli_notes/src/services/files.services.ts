@@ -53,7 +53,49 @@ const deleteNotes = async (noteId: NoteId): Promise<void> => {
         }
     }
 };
-const updateNotes = (noteId: string, note: Partial<NoteType>): void => {};
+
+const updateNotes = async (noteId: string, note: Partial<NoteType>): Promise<void> => {
+    try {
+        const notes = await readNotes();
+
+        const index = notes.findIndex((n) => n.id === noteId);
+        if (index === -1) {
+            log(`Note with ID ${noteId} not found`, "warn");
+            return;
+        }
+        const existing = notes[index];
+
+        const updatedNote: NoteType = {
+            ...existing,
+            ...note,
+            content: {
+                ...existing.content,
+                ...(note.content || {}),
+            },
+            tags: note.tags ?? existing.tags,
+            timestamps: {
+                ...existing.timestamps,
+                updatedAt: new Date(),
+                archivedAt: note.status === "archived" ? new Date() : existing.timestamps.archivedAt,
+            },
+            auditInfo: {
+                ...existing.auditInfo,
+                lastModifiedBy: os.userInfo().username,
+            },
+        };
+
+        notes[index] = updatedNote;
+
+        await writeAllNotes(notes);
+        log(`Note updated successfully | Title: "${updatedNote.content.title}"`, "success");
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            log(`Failed to update note: ${error.message}`, "error");
+        } else {
+            log("Failed to update note: Unknown error", "error");
+        }
+    }
+};
 
 const getNotes = async (filter?: NoteFilter): Promise<void> => {
     const notes = await readNotes();
