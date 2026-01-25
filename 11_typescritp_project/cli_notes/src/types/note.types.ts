@@ -26,6 +26,15 @@ interface NoteType {
     status: NoteStatus;
     priority: NotePriority;
     timestamps: Timestamps;
+    auditInfo: AuditInfo;
 }
 
-export { NoteId, Tag, NoteStatus, NotePriority, NoteContent, Timestamps, AuditInfo, NoteType };
+interface addNoteInput {
+    title: string;
+    description: string;
+    tags: Tag[];
+    status: NoteStatus;
+    priority: NotePriority;
+}
+
+export { NoteId, Tag, NoteStatus, NotePriority, NoteType, addNoteInput };

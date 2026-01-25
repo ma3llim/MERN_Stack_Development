@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { addNotes } from "./services/files.services.js";
+import { registerAddCommand } from "./utils/command.js";
 
-const cliNotes = new Command();
+const program = new Command();
 
-cliNotes.name("Notes").description("CLI Notes Application").version("1.0.0");
+program.name("Notes").description("Notes Application").version("1.0.0");
 
-// cliNotes.command("add").description("Add a new todo").argument("<content>", "Note content").action(addNotes);
-
-cliNotes.parse();
-console.log(os.userInfo().username);
+registerAddCommand(program);
+program.parse();
