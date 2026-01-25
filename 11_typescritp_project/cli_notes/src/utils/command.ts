@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { addNotes, deleteNotes, getNotes, updateNotes } from "../services/files.services.js";
+import { addNotes, deleteNotes, getNotes, searchNotes, updateNotes } from "../services/files.services.js";
 import { NoteId, NoteType } from "../types/note.types.js";
 
 const registerAddCommand = (program: Command): void => {
@@ -60,4 +60,14 @@ const registerGetCommand = (program: Command): void => {
         });
 };
 
-export { registerAddCommand, registerUpdateCommand, registerDeleteCommand, registerGetCommand };
+const registerSearchCommand = (program: Command): void => {
+    program
+        .command("search")
+        .description("Search notes by keyword in title or description")
+        .argument("<keyword>", "Keyword to search")
+        .action((keyword: string) => {
+            searchNotes(keyword);
+        });
+};
+
+export { registerAddCommand, registerUpdateCommand, registerDeleteCommand, registerGetCommand, registerSearchCommand };

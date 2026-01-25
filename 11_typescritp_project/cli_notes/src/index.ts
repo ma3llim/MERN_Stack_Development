@@ -4,6 +4,7 @@ import {
     registerAddCommand,
     registerDeleteCommand,
     registerGetCommand,
+    registerSearchCommand,
     registerUpdateCommand,
 } from "./utils/command.js";
 
@@ -15,5 +16,5 @@ registerAddCommand(program);
 registerGetCommand(program);
 registerDeleteCommand(program);
 registerUpdateCommand(program);
-
+registerSearchCommand(program);
 program.parse();
