@@ -3,6 +3,21 @@ import CliTable3, { Table } from "cli-table3";
 import { NoteType } from "../types/note.types.js";
 import log from "./logs.js";
 
+const formatDate = (date: Date | string): string => {
+    const d = date instanceof Date ? date : new Date(date);
+
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yy = String(d.getFullYear()).slice(-2);
+
+    const hh = String(d.getHours()).padStart(2, "0");
+    const min = String(d.getMinutes()).padStart(2, "0");
+
+    const period = d.getHours() < 12 ? "AM" : "PM";
+
+    return `${dd}-${mm}-${yy} ${hh}:${min} ${period}`;
+};
+
 const createNotesTable = (notes: NoteType[]): Table => {
     const table: Table = new CliTable3({
         head: [
@@ -16,7 +31,7 @@ const createNotesTable = (notes: NoteType[]): Table => {
             chalk.bold.magenta("Date Time"),
         ],
         wordWrap: true,
-        colWidths: [10, 20, 20, 22, 12, 12, 25, 25],
+        colWidths: [13, 20, 20, 22, 12, 12, 25, 28],
     });
 
     notes.forEach((note) => {
@@ -28,12 +43,12 @@ const createNotesTable = (notes: NoteType[]): Table => {
             chalk.cyan(note.status),
             chalk.yellow(note.priority),
             [
-                `Created: ${note.auditInfo.createdBy}`,
+                note.auditInfo.createdBy,
                 note.auditInfo.lastModifiedBy ? `Modified: ${note.auditInfo.lastModifiedBy}` : "",
             ].join("\n"),
             [
-                `Created: ${note.timestamps.createdAt.toLocaleString()}`,
-                `Updated: ${note.timestamps.updatedAt.toLocaleString()}`,
+                `Created: ${formatDate(note.timestamps.createdAt)}`,
+                `Updated: ${formatDate(note.timestamps.updatedAt)}`,
 
                 note.timestamps.archivedAt ? `Archived: ${note.timestamps.archivedAt.toLocaleString()}` : "",
             ].join("\n"),
@@ -69,10 +84,10 @@ const showOptions = (): void => {
 
 const showNotesTable = (notes: NoteType[], title = "Your Notes"): void => {
     console.clear();
-    console.log(chalk.bold.cyan(`\n📚 ${title}\n`));
+    log(title, "success");
 
     if (!notes.length) {
-        console.log(chalk.yellow("⚠️ No notes found."));
+        log("No notes found.", "warn");
         return;
     }
 
@@ -85,9 +100,6 @@ const newNoteAdded = (note: NoteType, title = "New Note Added Successfully"): vo
     console.log(createNotesTable([note]).toString());
 };
 
-/**
- * Shows search results in a table
- */
 const searchResultsTable = (notes: NoteType[], title = "Search Results"): void => {
     console.clear();
     log(chalk.bold.cyan(`\n📚 ${title}\n`));
