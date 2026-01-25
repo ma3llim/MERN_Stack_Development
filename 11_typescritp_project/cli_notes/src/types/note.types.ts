@@ -37,4 +37,10 @@ interface addNoteInput {
     priority: NotePriority;
 }
 
-export { NoteId, Tag, NoteStatus, NotePriority, NoteType, addNoteInput };
+interface NoteFilter {
+    priority?: NotePriority;
+    status?: NoteStatus;
+    tags?: Tag[];
+}
+
+export { NoteId, Tag, NoteStatus, NotePriority, NoteType, addNoteInput, NoteFilter };

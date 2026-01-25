@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { addNotes } from "../services/files.services.js";
+import { addNotes, getNotes } from "../services/files.services.js";
 
 const registerAddCommand = (program: Command): void => {
     program
@@ -21,8 +21,20 @@ const registerAddCommand = (program: Command): void => {
             addNotes(input);
         });
 };
+
 const registerUpdateCommand = (program: Command): void => {};
 const registerDeleteCommand = (program: Command): void => {};
-const registerGetCommand = (program: Command): void => {};
+
+const registerGetCommand = (program: Command): void => {
+    program
+        .command("get")
+        .description("Get all notes")
+        .option("-p, --priority <priority>", "low | medium | high")
+        .option("-t, --tags <tags>", "comma separated tags")
+        .option("-s, --status <status>", "active | archived | completed")
+        .action((options) => {
+            getNotes(options);
+        });
+};
 
 export { registerAddCommand, registerUpdateCommand, registerDeleteCommand, registerGetCommand };
