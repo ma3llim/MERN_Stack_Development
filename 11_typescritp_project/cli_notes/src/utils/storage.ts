@@ -1,76 +1,59 @@
-import os from "node:os";
-import { access, constants, readFile, writeFile } from "node:fs/promises";
+import { access, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NoteType } from "../types/note.types.js";
 import log from "./logs.js";
 
 const filePath = join(process.cwd(), "notes.json");
 
-const ensureFileExists = async (): Promise<void> => {
+const ensureFileExists = async () => {
     try {
         await access(filePath);
-    } catch (error) {
-        await writeFile(filePath, "[]", "utf-8");
+    } catch {
+        await writeFile(filePath, "[]");
     }
 };
 
-const saveNote = async (note: NoteType): Promise<void> => {
-    await ensureFileExists();
-
+// Read notes
+const readNotes = async (): Promise<NoteType[]> => {
     try {
-        const data = await readFile(filePath, "utf-8");
-        const notes: NoteType[] = JSON.parse(data || "[]") as NoteType[];
+        await ensureFileExists();
 
-        notes.push(note);
-        await writeFile(filePath, JSON.stringify(notes, null, 2));
-        log("Note Added Successfully", "success");
+        const data = await readFile(filePath, "utf-8");
+        return JSON.parse(data);
     } catch (error: unknown) {
         if (error instanceof Error) {
-            log(`Something went wrong while saving the note: ${error.message}`, "error");
+            log(`Something Went Wrong While Read Notes: ${error.message}`, "error");
         } else {
-            console.log("Something went wrong while saving the note", "error");
+            log("Something Went Wrong While Read Notes", "error");
         }
+        throw error;
     }
 };
 
-const getNotes = async (): Promise<NoteType[]> => {
-    await ensureFileExists();
-
+// Write notes
+const writeNotes = async (note: NoteType): Promise<NoteType> => {
     try {
+        await ensureFileExists();
+
         const data = await readFile(filePath, "utf-8");
-        const parsed = JSON.parse(data);
-        return Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-        return [];
-    }
-};
 
-const getNoteById = async (noteId: string) => {
-    await ensureFileExists();
+        const notes: NoteType[] = Array.isArray(JSON.parse(data || "[]"))
+            ? (JSON.parse(data || "[]") as NoteType[])
+            : [];
 
-    try {
-        const notes = await getNotes();
-        const note = notes.find((note) => note.id === noteId);
-        if (note) {
-            return note;
+        notes.push(note);
+
+        await writeFile(filePath, JSON.stringify(notes, null, 2), "utf-8");
+
+        return note;
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            log(`Something Went Wrong While Write Notes: ${error.message}`, "error");
         } else {
-            return "Note Not Found";
+            log("Something Went Wrong While Write Notes", "error");
         }
-    } catch (error) {
-        return [];
+        throw error;
     }
 };
 
-const noteDeleteById = async (noteId: string) => {
-    try {
-        const notes = await getNotes();
-    } catch (error) {
-        return;
-    }
-};
-const getNoteByTags = async (tags: string[]) => {
-    await ensureFileExists();
-    return filePath;
-};
-
-export { saveNote, getNotes, getNoteById, getNoteByTags };
+export { readNotes, writeNotes };
