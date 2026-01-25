@@ -2,13 +2,9 @@
 
 A **command-line notes management application** that allows users to **add, update, delete, filter, and search notes**. Designed for simplicity, speed, and productivity with a **colorful CLI interface**.
 
----
-
 ## Overview
 
 CLI Notes App is a Node.js-based command-line application to help you **organize your notes efficiently**. Notes are stored locally in a JSON file and can be categorized with **tags, priority, and status**. The app provides an intuitive interface with **tables, colors, and real-time feedback**.
-
----
 
 ## Features
 
@@ -21,8 +17,6 @@ CLI Notes App is a Node.js-based command-line application to help you **organize
 - **Timestamps:** Record creation, update, and archive times.
 - **CLI Table Display:** Notes are displayed in a readable and colored table.
 
----
-
 ## Technologies Used
 
 - **Node.js** – Runtime environment
@@ -32,8 +26,6 @@ CLI Notes App is a Node.js-based command-line application to help you **organize
 - **cli-table3** – Table display in the terminal
 - **nanoid** – Unique ID generation
 - **fs/promises** – File system operations for storing notes
-
----
 
 ## Installation
 
@@ -63,8 +55,6 @@ CLI Notes App is a Node.js-based command-line application to help you **organize
     notes
     ```
 
----
-
 ## Usage
 
 ### Add a Note
@@ -83,23 +73,17 @@ notes add "<title>" "<description>" -t "tag1,tag2" -p <priority> -s <status>
 notes add "Project Plan" "Finish the initial draft" -t "work,urgent" -p high -s active
 ```
 
----
-
 ### Update a Note
 
 ```bash
 notes update <id> --title "<new title>" --description "<new description>" --tags "tag1,tag2" --priority <priority> --status <status>
 ```
 
----
-
 ### Delete a Note
 
 ```bash
 notes delete <id>
 ```
-
----
 
 ### Get Notes
 
@@ -113,23 +97,17 @@ notes get [options]
 - `-s, --status` → Filter by status
 - `-t, --tags` → Filter by tags
 
----
-
 ### Search Notes
 
 ```bash
 notes search "<keyword>"
 ```
 
----
-
 ### Help & Options
 
 ```bash
 notes help
 ```
-
----
 
 ## Development & Contribution
 
@@ -166,8 +144,6 @@ To contribute, follow these steps:
 
 7. **Open a Pull Request**
 
----
-
 ## Contribution Guidelines
 
 - Write **clean, readable, and commented code**.
@@ -176,13 +152,9 @@ To contribute, follow these steps:
 - Add **features incrementally** and keep PRs focused.
 - Respect **existing code style** and use **chalk & cli-table3** for outputs.
 
----
-
 ## License
 
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
-
----
 
 ## Acknowledgements
 
