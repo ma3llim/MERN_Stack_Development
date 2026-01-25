@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { addNotes, getNotes } from "../services/files.services.js";
+import { addNotes, deleteNotes, getNotes } from "../services/files.services.js";
 
 const registerAddCommand = (program: Command): void => {
     program
@@ -23,7 +23,15 @@ const registerAddCommand = (program: Command): void => {
 };
 
 const registerUpdateCommand = (program: Command): void => {};
-const registerDeleteCommand = (program: Command): void => {};
+const registerDeleteCommand = (program: Command): void => {
+    program
+        .command("delete")
+        .description("Delete a note by ID")
+        .argument("<id>", "Note ID")
+        .action((options) => {
+            deleteNotes(options);
+        });
+};
 
 const registerGetCommand = (program: Command): void => {
     program

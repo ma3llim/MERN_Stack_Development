@@ -33,13 +33,7 @@ const readNotes = async (): Promise<NoteType[]> => {
 // Write notes
 const writeNotes = async (note: NoteType): Promise<NoteType> => {
     try {
-        await ensureFileExists();
-
-        const data = await readFile(filePath, "utf-8");
-
-        const notes: NoteType[] = Array.isArray(JSON.parse(data || "[]"))
-            ? (JSON.parse(data || "[]") as NoteType[])
-            : [];
+        const notes = await readNotes();
 
         notes.push(note);
 
@@ -56,4 +50,17 @@ const writeNotes = async (note: NoteType): Promise<NoteType> => {
     }
 };
 
-export { readNotes, writeNotes };
+const writeAllNotes = async (notes: NoteType[]): Promise<void> => {
+    try {
+        await writeFile(filePath, JSON.stringify(notes, null, 2), "utf-8");
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            log(`Something Went Wrong While Write Notes: ${error.message}`, "error");
+        } else {
+            log("Something Went Wrong While Write Notes", "error");
+        }
+        throw error;
+    }
+};
+
+export { readNotes, writeNotes, writeAllNotes };
