@@ -1,9 +1,9 @@
 type Todo = {
     id: number;
     text: string;
-    completed: boolean;
+    description: string;
 };
 
-type TodoAction = { type: "ADD"; payload: string } | { type: "TOGGLE"; payload: number } | { type: "DELETE"; payload: number };
+type TodoAction = { type: "ADD"; payload: Todo } | { type: "TOGGLE"; payload: number } | { type: "DELETE"; payload: number } | { type: "UPDATE"; payload: { id: number; todo: Todo } };
 
 export type { Todo, TodoAction };
