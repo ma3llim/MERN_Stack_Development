@@ -11,25 +11,18 @@ const useTodos = (initialTodos: Todo[] = []) => {
         toast.success("Todo added successfully");
     };
 
-    const toggleTodo = (id: number) => {
-        dispatch({
-            type: "TOGGLE",
-            payload: id,
-        });
-    };
-
-    const deleteTodo = (id: number) => {
+    const deleteTodo = (id: string) => {
         dispatch({ type: "DELETE", payload: id });
     };
 
-    const updateTodo = (id: number, todo: Todo) => {
+    const updateTodo = (id: string, todo: Todo) => {
         dispatch({
             type: "UPDATE",
             payload: { id, todo },
         });
     };
 
-    return { todos, addTodo, toggleTodo, deleteTodo, updateTodo };
+    return { todos, addTodo, deleteTodo, updateTodo };
 };
 
 export default useTodos;
