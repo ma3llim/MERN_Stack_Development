@@ -2,12 +2,14 @@ import React, { useState, type FormEvent } from "react";
 import { nanoid } from "nanoid";
 import type { Todo } from "../types/todo";
 import { toast } from "react-toastify";
-import useTodos from "../hooks/useTodos";
 
-const AddTodo: React.FC = () => {
+type addTodoProps = {
+    addTodo: (todo: Todo) => void;
+};
+
+const AddTodo: React.FC<addTodoProps> = ({ addTodo }) => {
     const [text, setText] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const { addTodo } = useTodos();
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const AddTodo: React.FC = () => {
         }
 
         const newTodo: Todo = {
-            id: Number(nanoid(8)),
+            id: nanoid(8),
             text: text,
             description: description,
         };
@@ -42,7 +44,6 @@ const AddTodo: React.FC = () => {
                 />
             </div>
 
-            {/* Description */}
             <div>
                 <label htmlFor="description" className="block text-sm font-medium text-white mb-1">
                     Enter the Description

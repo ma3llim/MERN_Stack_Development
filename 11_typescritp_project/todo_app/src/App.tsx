@@ -5,13 +5,13 @@ import AddTodo from "./components/AddTodo";
 
 const App = () => {
     const { todos, addTodo, deleteTodo, toggleTodo, updateTodo } = useTodos();
-
     return (
         <>
             <section className="w-screen h-screen bg-slate-900 text-white">
                 <Header />
                 <main className="container mx-auto">
-                    <AddTodo />
+                    <AddTodo addTodo={addTodo} />
+                    <hr />
                 </main>
             </section>
             <ToastContainer limit={3} />

@@ -6,9 +6,9 @@ const todoReducer = (state: Todo[], action: TodoAction): Todo[] => {
             return [
                 ...state,
                 {
-                    id: Date.now(),
-                    text: action.payload,
-                    completed: false,
+                    id: action.payload.id,
+                    text: action.payload.text,
+                    description: action.payload.description,
                 },
             ];
 
