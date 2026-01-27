@@ -5,7 +5,7 @@ import AddTodo from "./components/AddTodo";
 import ListTodos from "./components/ListTodos";
 
 const App = () => {
-    const { todos, addTodo, deleteTodo } = useTodos();
+    const { todos, addTodo, deleteTodo, updateTodo } = useTodos();
     return (
         <>
             <section className="w-screen min-h-screen bg-slate-900 text-white">
@@ -13,7 +13,7 @@ const App = () => {
                 <main className="container mx-auto space-y-4">
                     <AddTodo addTodo={addTodo} />
                     <hr />
-                    <ListTodos todos={todos} />
+                    <ListTodos todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo} />
                     <br />
                 </main>
             </section>

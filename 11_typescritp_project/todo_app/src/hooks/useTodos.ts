@@ -13,6 +13,7 @@ const useTodos = (initialTodos: Todo[] = []) => {
 
     const deleteTodo = (id: string) => {
         dispatch({ type: "DELETE", payload: id });
+        toast.success("Todo Deleted successfully");
     };
 
     const updateTodo = (id: string, todo: Todo) => {
