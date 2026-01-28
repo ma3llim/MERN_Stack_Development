@@ -4,6 +4,6 @@ type Todo = {
     description: string;
 };
 
-type TodoAction = { type: "ADD"; payload: Todo } | { type: "DELETE"; payload: string } | { type: "UPDATE"; payload: { id: string; todo: Todo } };
+type TodoAction = { type: "ADD"; payload: Todo } | { type: "DELETE"; payload: string } | { type: "UPDATE"; payload: { id: string; todo: Partial<Pick<Todo, "text" | "description">> } };
 
 export type { Todo, TodoAction };

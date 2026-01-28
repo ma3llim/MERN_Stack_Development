@@ -5,7 +5,7 @@ import UpdateTodoModal from "./UpdateTodoModal";
 type listTodosTypes = {
     todos: Todo[];
     deleteTodo: (id: string) => void;
-    updateTodo: (id: string, todo: { text?: string; description?: string }) => void;
+    updateTodo: (id: string, todo: Partial<Pick<Todo, "text" | "description">>) => void;
 };
 
 const ListTodos: React.FC<listTodosTypes> = ({ todos, deleteTodo, updateTodo }) => {

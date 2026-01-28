@@ -16,7 +16,7 @@ const useTodos = (initialTodos: Todo[] = []) => {
         toast.success("Todo Deleted successfully");
     };
 
-    const updateTodo = (id: string, todo: Todo) => {
+    const updateTodo = (id: string, todo: Partial<Pick<Todo, "text" | "description">>) => {
         dispatch({
             type: "UPDATE",
             payload: { id, todo },
