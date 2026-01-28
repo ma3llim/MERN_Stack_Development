@@ -1,0 +1,19 @@
+{
+    "name": "taskflow",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "author": {
+        "name": "mohd sameer",
+        "email": "mohdsameer68257@gmail.com"
+    },
+    "scripts": {
+        "dev": "node --env-file=.env --watch src/server.ts",
+        "build": "tsc",
+        "start": "node --env-file=.env dist/server.js"
+    },
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^5.9.3"
+    }
+}
