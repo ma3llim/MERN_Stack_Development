@@ -7,17 +7,20 @@
         "email": "mohdsameer68257@gmail.com"
     },
     "scripts": {
-        "dev": "node --env-file=.env --watch src/server.ts",
+        "dev": "tsx --env-file=.env src/server.ts",
         "build": "tsc",
         "start": "node --env-file=.env dist/server.js"
     },
     "license": "MIT",
     "dependencies": {
         "mongoose": "^9.1.5",
+        "winston": "^3.19.0",
         "zod": "^4.3.6"
     },
     "devDependencies": {
         "@types/node": "^25.1.0",
+        "@types/winston": "^2.4.4",
+        "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     }
 }
