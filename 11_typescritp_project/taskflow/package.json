@@ -6,6 +6,7 @@
         "name": "mohd sameer",
         "email": "mohdsameer68257@gmail.com"
     },
+    "type": "module",
     "scripts": {
         "dev": "tsx --env-file=.env src/server.ts",
         "build": "tsc",
@@ -13,11 +14,15 @@
     },
     "license": "MIT",
     "dependencies": {
+        "@types/bcrypt": "^6.0.0",
+        "bcrypt": "^6.0.0",
+        "jsonwebtoken": "^9.0.3",
         "mongoose": "^9.1.5",
         "winston": "^3.19.0",
         "zod": "^4.3.6"
     },
     "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.10",
         "@types/node": "^25.1.0",
         "@types/winston": "^2.4.4",
         "tsx": "^4.21.0",
