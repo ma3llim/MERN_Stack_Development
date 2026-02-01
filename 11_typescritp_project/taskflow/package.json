@@ -12,7 +12,10 @@
         "start": "node --env-file=.env dist/server.js"
     },
     "license": "MIT",
-    "dependencies": {},
+    "dependencies": {
+        "mongoose": "^9.1.5",
+        "zod": "^4.3.6"
+    },
     "devDependencies": {
         "@types/node": "^25.1.0",
         "typescript": "^5.9.3"
